@@ -1,5 +1,6 @@
 #include<iostream>
 #include "sha.h"
+#include "health.h"
 using namespace std;
 
 int main(int argc, char ** argv)
@@ -11,6 +12,7 @@ int main(int argc, char ** argv)
         cout<<"\n\t\tDEVELOPING MODE MENU";
         cout<<"\n------------------------------------------";
         cout<<"\n1.  SHA1 hash compare operation demo";
+        cout<<"\n2.  Accept Nodes";
         cout<<"\n0.  Exit";
         cout<<"\n\n\n\n------------------------------------------";
         cin>>choice;
@@ -33,7 +35,18 @@ int main(int argc, char ** argv)
                 {
                     cout<<"\nH1 > H2";
                 }
+                break;
             
+            case 2:
+            {
+                cout<<"Accepting Nodes... ";
+                LiveNodes live_nodes;
+                live_nodes.setup_network_for_health();
+                cout<<endl<<endl;
+                live_nodes.display_live_nodes();
+            }
+                break;
+                 
             default:
                 continue;
         }

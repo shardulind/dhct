@@ -1,5 +1,5 @@
-#ifndef bhaldar_H
-#define bhaldar_H
+#ifndef hash_H
+#define hash_H
 #pragma once
 
 

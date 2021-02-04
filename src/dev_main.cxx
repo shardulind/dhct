@@ -9,7 +9,7 @@ int main(int argc, char ** argv)
     {
         unsigned short int choice;
         cout<<"\n------------------------------------------";
-        cout<<"\n\t\tDEVELOPING MODE MENU";
+        cout<<"\n\t\tDEVELOPING MODE MENU (Testing each funct)";
         cout<<"\n------------------------------------------";
         cout<<"\n1.  SHA1 hash compare operation demo";
         cout<<"\n2.  Accept Nodes";
@@ -25,6 +25,7 @@ int main(int argc, char ** argv)
             case 1:
                 hash160 h1;
                 hash160 h2;
+                cout<<"\n \n Get SHA1 from https://emn178.github.io/online-tools/sha256.html\n";
                 h1.setter();
                 h2.setter();
                 if(h1<=h2)   cout<<"\nH1 <= H2";
@@ -53,7 +54,7 @@ int main(int argc, char ** argv)
 
             case 2:
             {
-                cout<<"Accepting Nodes... ";
+                cout<<"\nAccepting Nodes... (waiting for Slave nodes to send req.) ";
                 LiveNodes live_nodes;
                 live_nodes.setup_network_for_health();
                 cout<<endl<<endl;

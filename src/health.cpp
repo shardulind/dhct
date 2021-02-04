@@ -60,7 +60,7 @@ int LiveNodes :: add_new_node(Node new_node)
 
 int LiveNodes :: setup_network_for_health()
 {
-    cout<<"Mi jivant aahe @setup_network_for_health\n\n";
+    cout<<"@setup_network_for_health\n\n";
      int sockfd, newsockfd, portno;
      socklen_t clilen;
      char buffer[256];

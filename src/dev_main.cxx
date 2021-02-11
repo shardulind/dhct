@@ -5,6 +5,8 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
+
+    LiveNodes live_nodes;
     while(1)
     {
         unsigned short int choice;
@@ -13,6 +15,7 @@ int main(int argc, char ** argv)
         cout<<"\n------------------------------------------";
         cout<<"\n1.  SHA1 hash compare operation demo";
         cout<<"\n2.  Accept Nodes";
+        cout<<"\n3.  Active Nodes in the network";
         cout<<"\n0.  Exit";
         cout<<"\n\n\n\n------------------------------------------";
         cin>>choice;
@@ -55,13 +58,16 @@ int main(int argc, char ** argv)
             case 2:
             {
                 cout<<"\nAccepting Nodes... (waiting for Slave nodes to send req.) ";
-                LiveNodes live_nodes;
+                //LiveNodes live_nodes;
                 live_nodes.setup_network_for_health();
                 cout<<endl<<endl;
                 live_nodes.display_live_nodes();
             }
                 break;
-                 
+            
+            case 3:
+                live_nodes.display_live_nodes();
+                break;
             default:
                 continue;
         }

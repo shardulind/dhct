@@ -113,18 +113,18 @@ int LiveNodes :: setup_network_for_health()
         bzero(buffer,256);
         n = read(newsockfd,buffer,255);
         if (n < 0) error("ERROR reading from socket");
-           printf("Here is the message: %s\n",buffer);
+           printf(" \n");
 
         Node new_node;
         new_node.createNode(atoi(buffer), cli_addr);
         
-        n = write(newsockfd,"You got added , bahutek",24);
+        n = write(newsockfd,"You are added into Overlay Network, Your Node ID is:",52);
         if (n < 0) error("ERROR writing to socket");
             close(newsockfd);
 
         this->add_new_node(new_node);
 
-        cout<<"0: Exit 1: Continue";
+        cout<<"\t0: Exit 1: Continue";
         cin>>flag;
         if(!flag)  break;
 

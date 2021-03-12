@@ -17,8 +17,9 @@
 
 
 class Node{
-    //char node_id[160];        //make it SHA1
+    
     private:
+        //char node_id[160];        //SHA1,  UNCOMMENT IT WHILE STARTING WITH ROUTING CODE
         short int nodeId;
         struct sockaddr_in nodeIp;
     public:

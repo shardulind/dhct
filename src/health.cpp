@@ -112,6 +112,61 @@ int LiveNodes :: add_new_node(Node new_node)
 //int comm_with_single_node(char msg[256], struct sockaddr node_addr, ) /// working on the communication protocol
 
 
+//propoer communication methods are to be done
+//till then
+
+//function for sending msg to the nodes
+
+int Node :: give_identity_to_node(char msg[1024])
+{
+     int sockfd, newsockfd, portno;
+     socklen_t clilen;
+     char buffer[1024];
+
+     struct sockaddr_in serv_addr;
+     struct sockaddr_in node_addr = this->nodeIp;
+     
+     int n;
+
+     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     if (sockfd < 0) 
+        error("ERROR opening socket");
+     
+     bzero((char *) &serv_addr, sizeof(serv_addr));
+     //portno = atoi(argv[1]);
+     portno = HEALTH_PORT;
+
+     serv_addr.sin_family = AF_INET;
+     serv_addr.sin_addr.s_addr = INADDR_ANY;  //ip address of this machine
+     serv_addr.sin_port = htons(portno);
+     if (bind(sockfd, (struct sockaddr *) &serv_addr,
+              sizeof(serv_addr)) < 0) 
+              error("ERROR on binding");
+   
+    listen(sockfd,5);
+    clilen = sizeof(node_addr);
+    newsockfd = accept(sockfd, 
+                    (struct sockaddr *) &node_addr, 
+                    &clilen);
+
+    if (newsockfd < 0) 
+        error("ERROR on accept");
+    
+    
+    char* a = inet_ntoa(node_addr.sin_addr);
+
+    std:: cout<<"\nIP of node is : "<<a;
+        
+    bzero(buffer,1024);
+    n = write( newsockfd , msg , 1024);
+
+    if (n < 0) error("ERROR writing to socket");
+            close(newsockfd);
+
+        
+    //close(sockfd);
+    return 1;
+}
 
 int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
 {
@@ -143,6 +198,8 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
               sizeof(serv_addr)) < 0) 
               error("ERROR on binding");
      
+
+     int total_live_nodes = no_of_nodes_to_add_at_start;
      for(short int i=0; i<no_of_nodes_to_add_at_start; i++)
      {
         //bool flag;
@@ -171,16 +228,22 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
         Node new_node;
         new_node.createNode(atoi(buffer), cli_addr);  //here adding node id is to be defined
         
+        
+
+        this->add_new_node(new_node);
+        
+        //big
+        //cout<<"\n i = "<<total_live_nodes;
+        //cout<<"\n start_hash = "<<get_hash_partition_value_at(total_live_nodes, i, 0);
+        //cout<<"\n end_hash = "<<get_hash_partition_value_at(total_live_nodes, i, 1);
+        
+        live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));     
+        
+
+        //try sending object.. serialization, deserialization
         n = write(newsockfd,"You are added into Overlay Network, Your Node ID is:",52);
         if (n < 0) error("ERROR writing to socket");
             close(newsockfd);
-
-        this->add_new_node(new_node);
-
-       // cout<<"\t0: Exit 1: Continue";
-       // cin>>flag;
-       // if(!flag)  break;
-
    
      }
 
@@ -202,6 +265,9 @@ int LiveNodes :: init_node_map_table()
     for(int i=0; i<total_live_nodes; i++)
     {
         live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));     
+
+
+        live_nodes[i].give_identity_to_node("You received and msg");
     }
 
     

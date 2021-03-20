@@ -34,6 +34,8 @@ class Node{
         void print_node_info();
         void createNode(int, struct sockaddr_in);
         void add_hash_range(char start_hash[40], char end_hash[40]);
+        int give_identity_to_node(char msg[1024]);
+        
 
 };
 
@@ -42,7 +44,7 @@ class LiveNodes{
         Node live_nodes[MAX_LIVE_NODES];
         int live_node_counter;
 
-    
+
     public:
     LiveNodes()
     {
@@ -52,7 +54,7 @@ class LiveNodes{
         int add_new_node(Node);
         int setup_network_for_health(short int no_of_nodes_to_add_at_start);      
         int init_node_map_table();  // initializes the NodeMapTable, which has all details regarding the hash distributions throughtout the live nodes
-      
+        
 };
 
 

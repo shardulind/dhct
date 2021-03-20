@@ -59,7 +59,7 @@ int main(int argc, char ** argv)
 
 
                 //workin progress 18-03 16:10
-                live_nodes.init_node_map_table();
+                //live_nodes.init_node_map_table();
             }
                 break;
             

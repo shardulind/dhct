@@ -48,7 +48,6 @@ int establish_connection_with_master(char* master_ip)
     valread = read( sock , buffer, 1024); 
     printf("%s\n",buffer ); 
 
-
     return 1;
 }
 

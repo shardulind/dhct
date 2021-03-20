@@ -54,9 +54,6 @@ char* get_hash_partition_value_at(int total_parts, int current_part, int start_o
 
 
 
-
-
-
 int error(const char *msg)
 {
     perror(msg);
@@ -112,11 +109,13 @@ int LiveNodes :: add_new_node(Node new_node)
 }
 
 
+//int comm_with_single_node(char msg[256], struct sockaddr node_addr, ) /// working on the communication protocol
+
 
 
 int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
 {
-    cout<<"\nDEBUG: working inside @setup_network_for_health()\n\n";
+   // cout<<"\nDEBUG: working inside @setup_network_for_health()\n\n";
      int sockfd, newsockfd, portno;
      socklen_t clilen;
      char buffer[256];
@@ -199,19 +198,10 @@ int LiveNodes :: init_node_map_table()
 
     int total_live_nodes = this->live_node_counter + 1;  //  live_node_counter starts from 0
    
-    
-   // hash160 start_hash;   
-    //start hash is 
-    //cout<<"\n\nStart Hash is: "<<start_hash.getter()<<endl;
-    //hash160 end_hash;
-
-
-
+   //assining the nodes their range.
     for(int i=0; i<total_live_nodes; i++)
     {
-
-        live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));
-        
+        live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));     
     }
 
     
@@ -225,11 +215,7 @@ int LiveNodes :: init_node_map_table()
 
 void Node :: add_hash_range(char start_hash[40], char end_hash[40])
 {
-    //cout<<"\nDEBUG: Node::add_hash_range\n";
-    //cout<<"start_hash received from params: "<<start_hash<<endl;
     this->start_hash.setter(start_hash);
     this->end_hash.setter(end_hash);
 
-    //cout<<"\n DEBUG: @Node::add_hash_range  values set are \n\tstart_hash="<<this->start_hash.h;
-    //cout<<"\n\tend_hash="<<this->end_hash.h;
 }

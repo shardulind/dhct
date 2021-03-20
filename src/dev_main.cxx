@@ -40,20 +40,7 @@ int main(int argc, char ** argv)
                 break;
 
 
-                /*              char h1[40], h2[40];
-                cout<<"\n \n Get SHA1 from https://emn178.github.io/online-tools/sha256.html";
-                cout<<"\nEnter SHA1 hash1: ";
-                cin>>h1;
-                cout<<"Enter SHA1 hash2: ";
-                cin>>h2;
-
-                if(isHashSmallerThanOrEqualTo(h1,h2))   cout<<"\nH1 <= H2";
-                else
-                {
-                    cout<<"\nH1 > H2";
-                }
-                break;
-     */
+                
 
 
             case 2:

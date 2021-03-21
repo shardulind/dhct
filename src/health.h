@@ -35,6 +35,9 @@ class Node{
         void createNode(int, struct sockaddr_in);
         void add_hash_range(char start_hash[40], char end_hash[40]);
         int give_identity_to_node(char msg[1024]);
+
+        //methods for Slave NOdes
+        
         
 
 };

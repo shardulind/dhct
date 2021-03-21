@@ -6,12 +6,13 @@
 #include <string.h> 
 #include <iostream>
 
-#include "health.h"
 
-#define PORT 6969 
+#include "SlaveNode.h"
+
+
 
 using namespace std;
-
+/*
 int establish_connection_with_master(char* master_ip)
 {
     int sock = 0, valread; 
@@ -32,7 +33,7 @@ int establish_connection_with_master(char* master_ip)
     } 
    
     serv_addr.sin_family = AF_INET; 
-    serv_addr.sin_port = htons(PORT); 
+    serv_addr.sin_port = htons(HEALTH_PORT); 
        
     // Convert IPv4 and IPv6 addresses from text to binary form 
     if(inet_pton(AF_INET, master_ip, &serv_addr.sin_addr)<=0)  
@@ -58,7 +59,7 @@ int establish_connection_with_master(char* master_ip)
 
     return 1;
 }
-
+*/
 
    
 int main(int argc, char const *argv[]) 
@@ -67,6 +68,11 @@ int main(int argc, char const *argv[])
 
     while(1)
     {
+
+        Node my_identity;
+
+
+
         unsigned short int choice;
         cout<<"\n------------------------------------------";
         cout<<"\n\t\t@SLAVE NODE";
@@ -92,10 +98,11 @@ int main(int argc, char const *argv[])
                 char* master_ip;
                 cin>>master_ip;
 
-                connection_status = establish_connection_with_master(master_ip);
+                connection_status = establish_connection_with_master(master_ip, my_identity);
+                cout<<"\nDEBUG SLAVE"<<endl;
+                my_identity.print_node_info();
+                
                 break;
-
-
             case 2:
             
                 cout<<"\nWork in Progress";

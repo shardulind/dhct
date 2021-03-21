@@ -2,6 +2,38 @@
 using namespace std;
 
 
+void PartitionedDHT :: print_all_local_dht()
+{
+    	set<struct Dht_unit>::iterator it;
+        for(it = s.begin(); it != s.end(); it++)
+    	{
+		    cout<<endl<< (*it).sha1<<"\t"<<(*it).is_hash_stored;
+    	}
+}
+
+
+int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
+{
+    //check if hash exists in the set
+	set<struct Dht_unit>::iterator it;
+
+    for(it = s.begin(); it != s.end(); it++)
+    {
+        if(it->sha1 == received_hash){
+            cout<<"\nDEBUG  hash ="<<it->sha1<<"\n is_stored = "<<it->is_hash_stored;
+            return it->is_hash_stored;
+        }
+    }
+    
+    //reached here, it means that hash is not their in local dht..
+    //thus needed to add in the local dht
+    s.insert(Dht_unit{received_hash, true});
+    return false;
+}
+
+
+
+
 int SNode :: establish_connection_with_master(char* master_ip)
 {
     int sock = 0, valread; 
@@ -49,3 +81,4 @@ int SNode :: establish_connection_with_master(char* master_ip)
     
     return 1;
 }
+

@@ -6,8 +6,7 @@
 #include <string.h> 
 #include <iostream>
 
-#include "health.h"
-
+#include "SlaveNode.h"
 using namespace std;
 
 
@@ -67,6 +66,7 @@ int main(int argc, char const *argv[])
 {   
     int connection_status=0;
 
+    PartitionedDHT local_dht; 
     while(1)
     {
 
@@ -86,11 +86,16 @@ int main(int argc, char const *argv[])
         
         cout<<"\n2.  Who's my neighbour?";
         cout<<"\n3.  My Identity";
+        cout<<"\n4.  INsert HASH into local DHT";
+        cout<<"\n5.  Print All Hash";
         cout<<"\n0.  Exit";
 
         cout<<"\n\n\n\n------------------------------------------";
         cin>>choice;
         
+
+        bool status;
+        string temp;
         switch(choice)
         {
             case 0:
@@ -115,6 +120,22 @@ int main(int argc, char const *argv[])
                 cout<<"\n My Identity";
                 cout<<endl;
                 my_identity.print_node_info();
+                break;
+            
+            case 4:
+                cout<<"\n TEST Insert hash ";
+                    
+                cin>>temp;
+                status = local_dht.insert_sha_to_local_dht(temp);
+                if(status)
+                    cout<<"\n Hash is already in it!";
+                else
+                    cout<<"\n Hash inserted into local_dht";
+
+                break;
+            case 5:
+                cout<<"\n Print all hash's stored in local dht";
+                local_dht.print_all_local_dht();
                 break;
             default:
                 continue;

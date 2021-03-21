@@ -9,8 +9,10 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<iostream>
+#include<set>
 
 #include "health.h"
+
 
 class SNode : public Node
 {
@@ -19,6 +21,41 @@ class SNode : public Node
 
 };
 
+struct Dht_unit{
+	string sha1;
+	bool is_hash_stored;
+	
+	bool operator < (const Dht_unit &obj1) const
+	{
+		unsigned short int index = 0;
+		while(index < 40)
+		{
+		        if(this->sha1[index] < obj1.sha1[index])       return true;
+		        else if(this->sha1[index]> obj1.sha1[index])   return false;
+		        else if(this->sha1[index] == obj1.sha1[index])
+		                index++;
+		}
+	}
+
+    /* Not working... Needed more understanding..  Till then make a custom linear search. O(n);
+    //hhttp...journaldev/stl
+    bool operator ==(const string &temp) const{
+        return this->sha1 == temp;
+    }
+    */
+};
+
+
+class PartitionedDHT
+{
+    private:
+        	set<struct Dht_unit> s;
+
+    public:
+        void print_all_local_dht();
+        int insert_sha_to_local_dht(string hash);
+
+};
 
 
 #endif

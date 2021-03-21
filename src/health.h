@@ -14,12 +14,13 @@
 
 #define MAX_LIVE_NODES 10
 #define HEALTH_PORT 6969
+#define DHCT_PORT 7000
 
 using namespace std;
 
 string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end);      //0 for start, 1 for end
 
-
+int send_hash_to_node(char* hash, const char* nodeIP);
 
 class Node{
     
@@ -36,9 +37,7 @@ class Node{
         void createNode(int, struct sockaddr_in);
         void add_hash_range(string start_hash,string end_hash);
         int give_identity_to_node(char msg[1024]);
-
-        //methods for Slave NOdes
-
+        char* getIP();
         
 
 };
@@ -56,7 +55,8 @@ class LiveNodes{
     }
         int display_live_nodes();   //prints live node details and returns total count
         int add_new_node(Node);
-        int setup_network_for_health(short int no_of_nodes_to_add_at_start);      
+        int setup_network_for_health(short int no_of_nodes_to_add_at_start);  
+        char* get_IP_address_of(int nodeId);
         
 };
 

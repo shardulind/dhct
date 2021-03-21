@@ -12,7 +12,7 @@
 #include<set>
 
 #include "health.h"
-
+#define DHCT_PORT 7000
 
 class SNode : public Node
 {
@@ -54,7 +54,7 @@ class PartitionedDHT
     public:
         void print_all_local_dht();
         int insert_sha_to_local_dht(string hash);
-
+		void live_state();
 };
 
 

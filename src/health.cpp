@@ -255,6 +255,56 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
      return 0;
 }
 
+char* Node :: getIP()
+{
+    return inet_ntoa(this->nodeIp.sin_addr);
+}
+
+char* LiveNodes ::  get_IP_address_of(int nodeId)
+{
+    return live_nodes[0].getIP();
+}
+
+
+
+int send_hash_to_node(char* hash, const char * nodeIP)
+{
+    int sock = 0, valread; 
+    struct sockaddr_in node_addr; 
+    
+    char *hello = hash; 
+    char buffer[1024] = {0}; 
+    
+    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
+    { 
+        printf("\n Socket creation error \n"); 
+        return -1; 
+    } 
+   
+    node_addr.sin_family = AF_INET; 
+    node_addr.sin_port = htons(DHCT_PORT); 
+       
+    // Convert IPv4 and IPv6 addresses from text to binary form 
+    if(inet_pton(AF_INET, nodeIP, &node_addr.sin_addr)<=0)  
+    { 
+        printf("\nInvalid address/ Address not supported \n"); 
+        return -1; 
+    } 
+   
+    if (connect(sock, (struct sockaddr *)&node_addr, sizeof(node_addr)) < 0) 
+    { 
+        printf("\nConnection Failed \n"); 
+        return -1; 
+    } 
+
+    send(sock , hello , strlen(hello) , 0 ); 
+    printf("hash message sent\n"); 
+    
+    //waiting from them.. expected "OK"
+    valread = read( sock , buffer, 1024); 
+    printf("%s\n",buffer ); 
+    return 0; 
+}
 
 
 

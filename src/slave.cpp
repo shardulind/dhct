@@ -88,6 +88,7 @@ int main(int argc, char const *argv[])
         cout<<"\n3.  My Identity";
         cout<<"\n4.  INsert HASH into local DHT";
         cout<<"\n5.  Print All Hash";
+        cout<<"\n6.  live state";
         cout<<"\n0.  Exit";
 
         cout<<"\n\n\n\n------------------------------------------";
@@ -136,6 +137,11 @@ int main(int argc, char const *argv[])
             case 5:
                 cout<<"\n Print all hash's stored in local dht";
                 local_dht.print_all_local_dht();
+                break;
+            
+            case 6:
+                local_dht.live_state();
+                cout<<"\n\n Wow";
                 break;
             default:
                 continue;

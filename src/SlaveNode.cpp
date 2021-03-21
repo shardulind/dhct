@@ -32,6 +32,70 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
 }
 
 
+void PartitionedDHT :: live_state()
+{
+     int sockfd, newsockfd, portno;
+     socklen_t clilen;
+     char buffer[256];
+
+     struct sockaddr_in serv_addr, cli_addr;
+     
+     int n;
+     
+     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     if (sockfd < 0) 
+        cout<<"\nERROR opening socket";
+     
+     bzero((char *) &serv_addr, sizeof(serv_addr));
+     
+     portno = DHCT_PORT;
+
+     serv_addr.sin_family = AF_INET;
+     serv_addr.sin_addr.s_addr = INADDR_ANY;  //ip address of this machine
+     serv_addr.sin_port = htons(portno);
+     if (bind(sockfd, (struct sockaddr *) &serv_addr,
+              sizeof(serv_addr)) < 0) 
+              cout<<"ERROR on binding";
+    
+
+    bool flag=true;
+    while(flag)
+    {   
+        cout<<"\n Listening";
+        listen(sockfd,5);
+        
+        clilen = sizeof(cli_addr);
+        
+        newsockfd = accept(sockfd, 
+                    (struct sockaddr *) &cli_addr, 
+                    &clilen);
+        if (newsockfd < 0) 
+            cout<<"\nERROR on accept";
+        
+        char* a = inet_ntoa(cli_addr.sin_addr);
+
+        std::cout<<"\nIP of Master Node is : "<<a;
+        
+
+        bzero(buffer,256);
+        n = read(newsockfd,buffer,255);
+        if (n < 0) cout<<"ERROR reading from socket\n";
+
+        cout<<"\n===============================================";
+        cout<<"\n DEBUG\n Hash received from Master Node to probe into is: ";
+        cout<<buffer;
+
+        n = write(newsockfd, 'OK', 2);
+        if (n < 0) cout<<"\nERROR writing to socket";
+            close(newsockfd);
+
+        flag = false;
+     }
+
+     close(sockfd);
+     return;
+}
+
 
 
 int SNode :: establish_connection_with_master(char* master_ip)

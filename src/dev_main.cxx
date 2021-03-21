@@ -10,7 +10,7 @@ int main(int argc, char ** argv)
 
     hash160 h1;
     hash160 h2;
-
+    char* temp;
 
     while(1)
     {
@@ -22,6 +22,8 @@ int main(int argc, char ** argv)
         cout<<"\n2.  Accept Nodes";
         cout<<"\n3.  Active Nodes in the network";
         cout<<"\n4.  Get Partition hash160 value";
+        cout<<"\n5.  Send Hash to Node";
+        cout<<"\n6.  Get ip address of node";
         cout<<"\n0.  Exit";
         cout<<"\n\n\n\n------------------------------------------";
         cin>>choice;
@@ -72,6 +74,25 @@ int main(int argc, char ** argv)
                 cout<<get_hash_partition_value_at(a,b,c);
                 break;
             
+
+            case 5:
+                cout<<"\n TESTING";
+                //we will be sending data to first node just to check
+                cout<<"\n Enter hash to send to node: ";
+                cin>>temp;
+                cout<<"\n Enter nodeId to which hash to be sent";
+                int targetNode;
+                cin>>targetNode;
+                send_hash_to_node(temp, live_nodes.get_IP_address_of(targetNode));
+                
+                break;
+            
+            case 6:
+                cout<<"\nGet IP address of First node";
+                cout<<endl<<live_nodes.get_IP_address_of(0);
+                cout<<endl;
+                break;
+                
             default:
                 continue;
         }

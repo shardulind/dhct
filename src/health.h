@@ -15,6 +15,8 @@
 #define MAX_LIVE_NODES 10
 #define HEALTH_PORT 6969
 
+using namespace std;
+
 string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end);      //0 for start, 1 for end
 
 

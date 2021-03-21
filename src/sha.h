@@ -5,6 +5,8 @@
 #define HASH160_MIN "0000000000000000000000000000000000000000\0" 
 #define HASH160_MAX "ffffffffffffffffffffffffffffffffffffffff\0"
 
+using namespace std;
+
 
 class hash160{
         

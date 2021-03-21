@@ -7,6 +7,11 @@ int main(int argc, char ** argv)
 {
 
     LiveNodes live_nodes;
+
+    hash160 h1;
+    hash160 h2;
+
+
     while(1)
     {
         unsigned short int choice;
@@ -27,8 +32,6 @@ int main(int argc, char ** argv)
                     exit(0);
                     break;
             case 1:
-                hash160 h1;
-                hash160 h2;
                 cout<<"\n \n Get SHA1 from https://emn178.github.io/online-tools/sha256.html\n";
                 h1.setter();
                 h2.setter();

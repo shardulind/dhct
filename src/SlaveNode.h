@@ -12,9 +12,12 @@
 
 #include "health.h"
 
-int establish_connection_with_master(char* master_ip, Node &my_identity);
+class SNode : public Node
+{
+    public:
+        int establish_connection_with_master(char* master_ip);        
 
-
+};
 
 
 

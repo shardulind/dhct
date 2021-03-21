@@ -69,7 +69,7 @@ int main(int argc, char const *argv[])
     while(1)
     {
 
-        Node my_identity;
+        SNode my_identity;
 
 
 
@@ -98,7 +98,7 @@ int main(int argc, char const *argv[])
                 char* master_ip;
                 cin>>master_ip;
 
-                connection_status = establish_connection_with_master(master_ip, my_identity);
+                connection_status = my_identity.establish_connection_with_master(master_ip);
                 cout<<"\nDEBUG SLAVE"<<endl;
                 my_identity.print_node_info();
                 

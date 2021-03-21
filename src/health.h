@@ -22,7 +22,7 @@ char* get_hash_partition_value_at(int total_parts, int current_part, int start_o
 
 class Node{
     
-    private:
+    protected:
         //char node_id[160];        //SHA1,  UNCOMMENT IT WHILE STARTING WITH ROUTING CODE
         short int nodeId;
         struct sockaddr_in nodeIp;
@@ -37,7 +37,7 @@ class Node{
         int give_identity_to_node(char msg[1024]);
 
         //methods for Slave NOdes
-        
+
         
 
 };

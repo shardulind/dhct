@@ -2,7 +2,7 @@
 using namespace std;
 
 
-int establish_connection_with_master(char* master_ip, Node &my_identity)
+int SNode :: establish_connection_with_master(char* master_ip)
 {
     int sock = 0, valread; 
     struct sockaddr_in serv_addr, my_addr; 
@@ -39,12 +39,13 @@ int establish_connection_with_master(char* master_ip, Node &my_identity)
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
-
-
-    valread = read( sock , &my_identity, 104); 
+    Node temp;
+    valread = read( sock , &temp, 104);
+    
     cout<<endl;
-    my_identity.print_node_info();
+    temp.print_node_info();
     //printf("%s\n",buffer ); 
 
+    
     return 1;
 }

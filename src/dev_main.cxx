@@ -10,7 +10,7 @@ int main(int argc, char ** argv)
 
     hash160 h1;
     hash160 h2;
-    char* temp;
+    string temp;
 
     while(1)
     {
@@ -84,7 +84,7 @@ int main(int argc, char ** argv)
                 int targetNode;
                 cin>>targetNode;
                 send_hash_to_node(temp, live_nodes.get_IP_address_of(targetNode));
-                
+
                 break;
             
             case 6:

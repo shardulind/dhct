@@ -267,12 +267,12 @@ char* LiveNodes ::  get_IP_address_of(int nodeId)
 
 
 
-int send_hash_to_node(char* hash, const char * nodeIP)
+int send_hash_to_node(string hash, const char * nodeIP)
 {
     int sock = 0, valread; 
     struct sockaddr_in node_addr; 
     
-    char *hello = hash; 
+    char *hello = &hash[0]; 
     char buffer[1024] = {0}; 
     
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 

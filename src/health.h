@@ -20,7 +20,7 @@ using namespace std;
 
 string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end);      //0 for start, 1 for end
 
-int send_hash_to_node(char* hash, const char* nodeIP);
+int send_hash_to_node(string hash, const char* nodeIP);
 
 class Node{
     

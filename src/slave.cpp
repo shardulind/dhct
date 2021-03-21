@@ -13,7 +13,7 @@ using namespace std;
 Node my_identity;
 
 
-int establish_connection_with_master(char* master_ip)
+int establish_connection_with_master(string master_ip)
 {
     int sock = 0, valread; 
     struct sockaddr_in serv_addr, my_addr; 
@@ -22,9 +22,9 @@ int establish_connection_with_master(char* master_ip)
 
     char* my_ip = inet_ntoa(my_addr.sin_addr);
     
-    char* a = "Hello from ";
-    char *hello = a + *my_ip; 
-    char buffer[1024] = {0}; 
+    //char* a = "Hello from ";
+    char *hello = my_ip; 
+    //char buffer[1024] = {0}; 
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     { 
@@ -35,8 +35,9 @@ int establish_connection_with_master(char* master_ip)
     serv_addr.sin_family = AF_INET; 
     serv_addr.sin_port = htons(HEALTH_PORT); 
        
+    char* const mip = &master_ip[0];
     // Convert IPv4 and IPv6 addresses from text to binary form 
-    if(inet_pton(AF_INET, master_ip, &serv_addr.sin_addr)<=0)  
+    if(inet_pton(AF_INET, mip, &serv_addr.sin_addr)<=0)  
     { 
         printf("\nInvalid address/ Address not supported \n"); 
         return -1; 
@@ -72,8 +73,6 @@ int main(int argc, char const *argv[])
 
         //Node my_identity;
 
-
-
         unsigned short int choice;
         cout<<"\n------------------------------------------";
         cout<<"\n\t\t@SLAVE NODE";
@@ -91,10 +90,10 @@ int main(int argc, char const *argv[])
         cout<<"\n6.  live state";
         cout<<"\n0.  Exit";
 
-        cout<<"\n\n\n\n------------------------------------------";
+        cout<<"\n\n\n\n------------------------------------------"<<endl;
         cin>>choice;
         
-
+        string master_ip;
         bool status;
         string temp;
         switch(choice)
@@ -103,12 +102,12 @@ int main(int argc, char const *argv[])
                     exit(0);
                     break;
             case 1:
-                cout<<"\n\nEnter IP address of Master Node";
-                char* master_ip;
+                cout<<"\n\nEnter IP address of Master Node"<<endl;
+                
                 cin>>master_ip;
 
                 connection_status = establish_connection_with_master(master_ip);
-                cout<<"\nDEBUG SLAVE"<<endl;
+                //cout<<"\nDEBUG SLAVE"<<endl;
                 my_identity.print_node_info();
                 
                 break;

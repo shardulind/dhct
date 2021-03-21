@@ -85,7 +85,7 @@ void PartitionedDHT :: live_state()
         cout<<"\n DEBUG\n Hash received from Master Node to probe into is: ";
         cout<<buffer;
 
-        n = write(newsockfd, 'OK', 2);
+        n = write(newsockfd, "OK", 2);
         if (n < 0) cout<<"\nERROR writing to socket";
             close(newsockfd);
 

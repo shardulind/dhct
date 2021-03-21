@@ -5,6 +5,9 @@
 #include <unistd.h> 
 #include <string.h> 
 #include <iostream>
+
+#include "health.h"
+
 #define PORT 6969 
 
 using namespace std;
@@ -45,8 +48,13 @@ int establish_connection_with_master(char* master_ip)
     } 
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
-    valread = read( sock , buffer, 1024); 
-    printf("%s\n",buffer ); 
+    
+    Node my_identity;
+
+    valread = read( sock , &my_identity, 104); 
+    cout<<endl;
+    my_identity.print_node_info();
+    //printf("%s\n",buffer ); 
 
     return 1;
 }

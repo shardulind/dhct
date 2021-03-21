@@ -241,7 +241,11 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
         
 
         //try sending object.. serialization, deserialization
-        n = write(newsockfd,"You are added into Overlay Network, Your Node ID is:",52);
+        //cout<<"\nSize of New Node:"<<sizeof(new_node)<<endl;
+
+
+
+        n = write(newsockfd, &new_node, sizeof(new_node));
         if (n < 0) error("ERROR writing to socket");
             close(newsockfd);
    

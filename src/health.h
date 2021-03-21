@@ -10,7 +10,7 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<iostream>
-
+//#include<QDataStream> //for sending objects over network
 #include "sha.h"
 
 #define MAX_LIVE_NODES 10

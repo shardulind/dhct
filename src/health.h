@@ -3,20 +3,19 @@
 
 
 
-#include<strings.h>
+
 #include<unistd.h>
 #include<sys/types.h>
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<iostream>
-//#include<QDataStream> //for sending objects over network
 #include "sha.h"
 
 #define MAX_LIVE_NODES 10
 #define HEALTH_PORT 6969
 
-char* get_hash_partition_value_at(int total_parts, int current_part, int start_or_end);      //0 for start, 1 for end
+string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end);      //0 for start, 1 for end
 
 
 
@@ -33,7 +32,7 @@ class Node{
         Node(){}
         void print_node_info();
         void createNode(int, struct sockaddr_in);
-        void add_hash_range(char start_hash[40], char end_hash[40]);
+        void add_hash_range(string start_hash,string end_hash);
         int give_identity_to_node(char msg[1024]);
 
         //methods for Slave NOdes
@@ -56,7 +55,6 @@ class LiveNodes{
         int display_live_nodes();   //prints live node details and returns total count
         int add_new_node(Node);
         int setup_network_for_health(short int no_of_nodes_to_add_at_start);      
-        int init_node_map_table();  // initializes the NodeMapTable, which has all details regarding the hash distributions throughtout the live nodes
         
 };
 

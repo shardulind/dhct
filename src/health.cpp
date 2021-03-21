@@ -1,22 +1,22 @@
 #include "health.h"
-
+#include<string.h>
 using namespace std;
 
 
 
 
-char* get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
+string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
   {
 
 
    //from, to
     //from, to
-    char* const hash160_partition_2[2][2] = {
+    string hash160_partition_2[2][2] = {
             {"0000000000000000000000000000000000000000\0", "7fffffffffffffffffffffffffffffffffffffff\0"},
             {"8000000000000000000000000000000000000000\0", "ffffffffffffffffffffffffffffffffffffffff\0"}
             };
 
-    char* const hash160_partition_4[4][2] = {
+    string const hash160_partition_4[4][2] = {
         {"0000000000000000000000000000000000000000\0", "3fffffffffffffffffffffffffffffffffffffff\0"},
         {"4000000000000000000000000000000000000000\0", "7fffffffffffffffffffffffffffffffffffffff\0"},
         {"8000000000000000000000000000000000000000\0", "bfffffffffffffffffffffffffffffffffffffff\0"},
@@ -24,7 +24,7 @@ char* get_hash_partition_value_at(int total_parts, int current_part, int start_o
     };
 
 
-    char* const hash160_partition_6[6][2] = {
+    string const hash160_partition_6[6][2] = {
         {"0000000000000000000000000000000000000000\0", "2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\0"},
         {"2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\0", "5555555555555555555555555555555555555555\0"},
         {"5555555555555555555555555555555555555556\0", "7fffffffffffffffffffffffffffffffffffffff\0"},
@@ -33,7 +33,7 @@ char* get_hash_partition_value_at(int total_parts, int current_part, int start_o
         {"d555555555555555555555555555555555555556\0", "ffffffffffffffffffffffffffffffffffffffff\0"}
     };
 
-    char* const hash160_partition_8[8][2] = {
+    string const hash160_partition_8[8][2] = {
         {"0000000000000000000000000000000000000000\0", "1fffffffffffffffffffffffffffffffffffffff\0"},
         {"2000000000000000000000000000000000000000\0", "3fffffffffffffffffffffffffffffffffffffff\0"},
         {"4000000000000000000000000000000000000000\0", "5fffffffffffffffffffffffffffffffffffffff\0"},
@@ -257,33 +257,8 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
 
 
 
-int LiveNodes :: init_node_map_table()
-{
-    // table which stores, { nodeID, start_hash, end_hash, NodeIP}
-    // nodeID , and node IP are already added in the nodemaptable == livenodes
 
-
-    int total_live_nodes = this->live_node_counter + 1;  //  live_node_counter starts from 0
-   
-   //assining the nodes their range.
-    for(int i=0; i<total_live_nodes; i++)
-    {
-        live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));     
-
-
-        live_nodes[i].give_identity_to_node("You received and msg");
-    }
-
-    
-    return 1;
-    // based upon no_of_nodes ( live_node_counter+1 ) divide total range of sha160
-    // assign each node a start and end hash
-
-}
-      
-
-
-void Node :: add_hash_range(char start_hash[40], char end_hash[40])
+void Node :: add_hash_range(string start_hash, string end_hash)
 {
     this->start_hash.setter(start_hash);
     this->end_hash.setter(end_hash);

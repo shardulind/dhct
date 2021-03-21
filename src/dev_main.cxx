@@ -38,11 +38,6 @@ int main(int argc, char ** argv)
                     cout<<"\nH1 > H2";
                 }
                 break;
-
-
-                
-
-
             case 2:
             {
 

@@ -3,45 +3,23 @@
 using namespace std;
 
 
-//copy function utility  (suspicious:  Cleared)
-void cstringcpy(char *src, char * dest)
-{
-        //cout<<"\n==========================================================";
-        //cout<<"\n\nDEBUG cstingcpy: ";
-        //int counter=0;
-    while (*src) {
-        *(dest++) = *(src++);
-        //counter++;
-        //cout<<endl<<counter;
-    }
-    *dest = '\0';
-    //cout<<"\n=========================================";
-    //cout<<"\nDEBUG @cstringcpy  dest = "<<*dest;
-}
-
-
-
 // hashvalue Setter implementaion
 void hash160 :: setter(){
         cout<<"Enter sha: "<<endl;
         cin>> h;
 }
 
-void hash160 :: setter(char hash[40])
+void hash160 :: setter(string hash)
 {
         //cout<<"\nDEBUG: @hash160 :: setter";
         
-       cstringcpy(hash,this->h);
+        this->h = hash;
         //cout<<"\nafter copy h = "<<this->h;
 }
 
 // hashvalue Setter implementaion
-char* hash160 :: getter(){
-        //cout<<"\n====================================================";
-        //cout<<"\nDEBUG: @HASH160:: getter";
-        //cout<<"\n\th = "<<h;
-        //cout<<"\n len(h) = "<<sizeof(h)/sizeof(h[0]);
-        //cout<<"\n===================================================="<<endl; 
+string hash160 :: getter(){
+
                 return h;
 }
 

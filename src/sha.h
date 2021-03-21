@@ -9,10 +9,10 @@
 class hash160{
         
     public:
-         char h[41];
+         string h;
          void setter();     // method to set hashvalue
-         void setter(char hash[40]);
-         char* getter();     // method to get hashvalue
+         void setter(string hash);
+         string getter();     // method to get hashvalue
 
 };
 

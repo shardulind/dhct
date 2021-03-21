@@ -6,13 +6,14 @@
 #include <string.h> 
 #include <iostream>
 
-
-#include "SlaveNode.h"
-
-
+#include "health.h"
 
 using namespace std;
-/*
+
+
+Node my_identity;
+
+
 int establish_connection_with_master(char* master_ip)
 {
     int sock = 0, valread; 
@@ -50,7 +51,7 @@ int establish_connection_with_master(char* master_ip)
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
-    Node my_identity;
+    //Node my_identity;
 
     valread = read( sock , &my_identity, 104); 
     cout<<endl;
@@ -59,7 +60,7 @@ int establish_connection_with_master(char* master_ip)
 
     return 1;
 }
-*/
+
 
    
 int main(int argc, char const *argv[]) 
@@ -69,7 +70,7 @@ int main(int argc, char const *argv[])
     while(1)
     {
 
-        SNode my_identity;
+        //Node my_identity;
 
 
 
@@ -84,7 +85,9 @@ int main(int argc, char const *argv[])
             cout<<"\n1.  PING to Master NODE";
         
         cout<<"\n2.  Who's my neighbour?";
+        cout<<"\n3.  My Identity";
         cout<<"\n0.  Exit";
+
         cout<<"\n\n\n\n------------------------------------------";
         cin>>choice;
         
@@ -98,7 +101,7 @@ int main(int argc, char const *argv[])
                 char* master_ip;
                 cin>>master_ip;
 
-                connection_status = my_identity.establish_connection_with_master(master_ip);
+                connection_status = establish_connection_with_master(master_ip);
                 cout<<"\nDEBUG SLAVE"<<endl;
                 my_identity.print_node_info();
                 
@@ -107,7 +110,12 @@ int main(int argc, char const *argv[])
             
                 cout<<"\nWork in Progress";
                 break;
-                 
+            
+            case 3:
+                cout<<"\n My Identity";
+                cout<<endl;
+                my_identity.print_node_info();
+                break;
             default:
                 continue;
         }

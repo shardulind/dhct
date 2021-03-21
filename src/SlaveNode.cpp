@@ -42,8 +42,8 @@ int SNode :: establish_connection_with_master(char* master_ip)
     Node temp;
     valread = read( sock , &temp, 104);
     
-    cout<<endl;
-    temp.print_node_info();
+    //cout<<endl;
+    //temp.print_node_info();
     //printf("%s\n",buffer ); 
 
     

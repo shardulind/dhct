@@ -228,7 +228,7 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
         Node new_node;
         new_node.createNode(atoi(buffer), cli_addr);  //here adding node id is to be defined
         
-        
+        new_node.nodeId = i;
 
         this->add_new_node(new_node);
         
@@ -265,10 +265,25 @@ char* LiveNodes ::  get_IP_address_of(int nodeId)
     return live_nodes[0].getIP();
 }
 
+int LiveNodes :: routing(string hash)
+{
+    hash160 temp;
+    temp.setter(hash);
+
+    for(int i=0; i<=live_node_counter; i++)
+    {
+        cout<<endl<<i;
+        if(temp <= live_nodes[i].end_hash)    return i;
+    }
+    cout<<"\n DEBUG: Error in routing";
+    return -1;
+
+}
 
 
 int send_hash_to_node(string hash, const char * nodeIP)
 {
+    cout<<"\nSending hash to node";
     int sock = 0, valread; 
     struct sockaddr_in node_addr; 
     

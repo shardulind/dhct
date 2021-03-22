@@ -11,6 +11,7 @@ int main(int argc, char ** argv)
     hash160 h1;
     hash160 h2;
     string temp;
+    int targetNode;
 
     while(1)
     {
@@ -80,16 +81,17 @@ int main(int argc, char ** argv)
                 //we will be sending data to first node just to check
                 cout<<"\n Enter hash to send to node: ";
                 cin>>temp;
-                cout<<"\n Enter nodeId to which hash to be sent";
-                int targetNode;
-                cin>>targetNode;
+                targetNode = live_nodes.routing(temp);
+                
                 send_hash_to_node(temp, live_nodes.get_IP_address_of(targetNode));
 
                 break;
             
             case 6:
-                cout<<"\nGet IP address of First node";
-                cout<<endl<<live_nodes.get_IP_address_of(0);
+                cout<<"\nGet IP address of NOde:  ";
+                int temp_nodeid;
+                cin>>temp_nodeid;
+                cout<<endl<<live_nodes.get_IP_address_of(temp_nodeid);
                 cout<<endl;
                 break;
                 

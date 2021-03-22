@@ -59,6 +59,7 @@ void PartitionedDHT :: live_state()
     
 
     bool flag=true;
+
     while(flag)
     {   
         cout<<"\n Listening";
@@ -82,7 +83,7 @@ void PartitionedDHT :: live_state()
         if (n < 0) cout<<"ERROR reading from socket\n";
 
         cout<<"\n===============================================";
-        cout<<"\n DEBUG\n Hash received from Master Node to probe into is: ";
+        cout<<"\n DEBUG\n Hash received from Master Node is: ";
         cout<<buffer;
 
         insert_sha_to_local_dht(buffer);
@@ -91,7 +92,8 @@ void PartitionedDHT :: live_state()
         if (n < 0) cout<<"\nERROR writing to socket";
             close(newsockfd);
 
-        flag = false;
+        cout<<"\nTEST purpose:  Keep running? (1/0)";
+        cin>>flag;
      }
 
      close(sockfd);

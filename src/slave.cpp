@@ -67,6 +67,7 @@ int main(int argc, char const *argv[])
 {   
     int connection_status=0;
 
+
     PartitionedDHT local_dht; 
     while(1)
     {
@@ -140,7 +141,7 @@ int main(int argc, char const *argv[])
             
             case 6:
                 local_dht.live_state();
-                cout<<"\n\n Wow";
+                
                 break;
             default:
                 continue;

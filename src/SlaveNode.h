@@ -37,7 +37,7 @@ struct Dht_unit{
 		}
 	}
 
-    /* Not working... Needed more understanding..  Till then make a custom linear search. O(n);
+    /* Not working... Needed more understanding..  Till then make a custom linear search. ;
     //hhttp...journaldev/stl
     bool operator ==(const string &temp) const{
         return this->sha1 == temp;

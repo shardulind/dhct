@@ -25,7 +25,7 @@ int send_hash_to_node(string hash, const char* nodeIP);
 class Node{
     //private
     public:
-        //char node_id[160];        //SHA1,  UNCOMMENT IT WHILE STARTING WITH ROUTING CODE
+        
         short int nodeId;
         struct sockaddr_in nodeIp;
         hash160 start_hash; // from where the hash table starts in that node    //init has garbage vals

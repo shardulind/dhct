@@ -262,7 +262,7 @@ char* Node :: getIP()
 
 char* LiveNodes ::  get_IP_address_of(int nodeId)
 {
-    return live_nodes[0].getIP();
+    return live_nodes[nodeId].getIP();
 }
 
 int LiveNodes :: routing(string hash)

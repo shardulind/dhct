@@ -1,14 +1,48 @@
 #include "health.h"
+#include<fstream>
+#include<sstream>
+#include<vector>
 #include<string.h>
 using namespace std;
 
 
 
 
+int LiveNodes :: run_hash_cal(string start_hash, string end_hash, string no_of_div)
+{
+	string filename = "hash_cal.py";
+	string str = "python3 ";
+	str = str + filename + " " + start_hash + " " + end_hash + " "+ no_of_div;
+	// Convert string to const char * as system requires
+	// parameter of type const char *
+	
+	const char *command = str.c_str();
+	system(command);
+
+    fstream file;
+    file.open("hash-partitions-temp.txt", ios::in);
+    
+    if(!file)   cout<<"\n ERROR: Partitions temp file not found!";
+    else
+    {
+        string temp;
+        while(getline(file, temp)){
+            this->space_separated_hash_partitions_at_epoch = this->space_separated_hash_partitions_at_epoch + temp + " ";
+        }    
+        file.close();
+    }
+
+    return 1;
+}
+
+string LiveNodes :: get_all_hash_partitions_value()
+{
+     return this->space_separated_hash_partitions_at_epoch;
+}
+
+
 string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
-  {
-
-
+{
    //from, to
     //from, to
     string hash160_partition_2[2][2] = {
@@ -170,85 +204,101 @@ int Node :: give_identity_to_node(char msg[1024])
 
 int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
 {
-   // cout<<"\nDEBUG: working inside @setup_network_for_health()\n\n";
-     int sockfd, newsockfd, portno;
-     socklen_t clilen;
-     char buffer[256];
 
-     struct sockaddr_in serv_addr, cli_addr;
-     
-     int n;
-     /*
-     if (argc < 2) {
-         fprintf(stderr,"ERROR, no port provided\n");
-         exit(1);
-     }*/
-     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-     if (sockfd < 0) 
-        error("ERROR opening socket");
-     
-     bzero((char *) &serv_addr, sizeof(serv_addr));
-     //portno = atoi(argv[1]);
-     portno = HEALTH_PORT;
+    this->run_hash_cal(HASH160_MIN, HASH160_MAX, to_string(no_of_nodes_to_add_at_start));
+    string space_sep_hash_partition = this->get_all_hash_partitions_value();
+    istringstream iss(space_sep_hash_partition);
 
-     serv_addr.sin_family = AF_INET;
-     serv_addr.sin_addr.s_addr = INADDR_ANY;  //ip address of this machine
-     serv_addr.sin_port = htons(portno);
-     if (bind(sockfd, (struct sockaddr *) &serv_addr,
-              sizeof(serv_addr)) < 0) 
-              error("ERROR on binding");
-     
+    vector<pair<string, string>> hash_partitions;
 
-     int total_live_nodes = no_of_nodes_to_add_at_start;
-     for(short int i=0; i<no_of_nodes_to_add_at_start; i++)
-     {
-        //bool flag;
-       
-        listen(sockfd,5);
+    for(string s,e; iss>>s, iss>>e;)
+        hash_partitions.push_back(make_pair(s,e));
         
-        clilen = sizeof(cli_addr);
-        
-        newsockfd = accept(sockfd, 
-                    (struct sockaddr *) &cli_addr, 
-                    &clilen);
-        if (newsockfd < 0) 
-            error("ERROR on accept");
-        
-        
-        char* a = inet_ntoa(cli_addr.sin_addr);
+    //cout<<"\n size"<<hash_partitions.size()<<endl;
+    //for(int i=0; i<no_of_nodes_to_add_at_start; i++)
+    //    cout<<hash_partitions[i].first<<"  "<<hash_partitions[i].second<<endl;
 
-        std:: cout<<"\nIP of node is : "<<a;
-        
+    
 
-        bzero(buffer,256);
-        n = read(newsockfd,buffer,255);
-        if (n < 0) error("ERROR reading from socket");
-           printf(" \n");
+    int sockfd, newsockfd, portno;
+    socklen_t clilen;
+    char buffer[256];
 
-        Node new_node;
-        new_node.createNode(atoi(buffer), cli_addr);  //here adding node id is to be defined
-        
-        new_node.nodeId = i;
+    struct sockaddr_in serv_addr, cli_addr;
 
-        this->add_new_node(new_node);
-        
-        //big
-        //cout<<"\n i = "<<total_live_nodes;
-        //cout<<"\n start_hash = "<<get_hash_partition_value_at(total_live_nodes, i, 0);
-        //cout<<"\n end_hash = "<<get_hash_partition_value_at(total_live_nodes, i, 1);
-        
-        live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));     
-        
+    int n;
+    /*
+    if (argc < 2) {
+        fprintf(stderr,"ERROR, no port provided\n");
+        exit(1);
+    }*/
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) 
+    error("ERROR opening socket");
 
-        //try sending object.. serialization, deserialization
-        //cout<<"\nSize of New Node:"<<sizeof(new_node)<<endl;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    //portno = atoi(argv[1]);
+    portno = HEALTH_PORT;
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;  //ip address of this machine
+    serv_addr.sin_port = htons(portno);
+    if (bind(sockfd, (struct sockaddr *) &serv_addr,
+            sizeof(serv_addr)) < 0) 
+            error("ERROR on binding");
 
 
+    int total_live_nodes = no_of_nodes_to_add_at_start;
+    for(short int i=0; i<no_of_nodes_to_add_at_start; i++)
+    {
+    //bool flag;
 
-        n = write(newsockfd, &new_node, sizeof(new_node));
-        if (n < 0) error("ERROR writing to socket");
-            close(newsockfd);
-   
+    listen(sockfd,5);
+
+    clilen = sizeof(cli_addr);
+
+    newsockfd = accept(sockfd, 
+                (struct sockaddr *) &cli_addr, 
+                &clilen);
+    if (newsockfd < 0) 
+        error("ERROR on accept");
+
+
+    char* a = inet_ntoa(cli_addr.sin_addr);
+
+    std:: cout<<"\nIP of node is : "<<a;
+
+
+    bzero(buffer,256);
+    n = read(newsockfd,buffer,255);
+    if (n < 0) error("ERROR reading from socket");
+        cout<<" \n";
+
+    Node new_node;
+    new_node.createNode(atoi(buffer), cli_addr);  //here adding node id is to be defined
+
+    new_node.nodeId = i;
+
+    this->add_new_node(new_node);
+
+    
+    /* old method.. hard coded hash values
+    live_nodes[i].add_hash_range(get_hash_partition_value_at(total_live_nodes, i, 0), get_hash_partition_value_at(total_live_nodes, i, 1));     
+    */
+
+    live_nodes[i].add_hash_range(hash_partitions[i].first, hash_partitions[i].second);
+
+    
+
+    //try sending object.. serialization, deserialization
+    //cout<<"\nSize of New Node:"<<sizeof(new_node)<<endl;
+
+
+
+    n = write(newsockfd, &new_node, sizeof(new_node));
+    if (n < 0) error("ERROR writing to socket");
+        close(newsockfd);
+
      }
 
      close(sockfd);

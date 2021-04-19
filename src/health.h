@@ -18,12 +18,14 @@
 
 using namespace std;
 
+
+
+
 string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end);      //0 for start, 1 for end
 
 int send_hash_to_node(string hash, const char* nodeIP);
 
 class Node{
-    //private
     public:
         
         short int nodeId;
@@ -46,13 +48,20 @@ class LiveNodes{
     private:
         Node live_nodes[MAX_LIVE_NODES];
         int live_node_counter;
+        string space_separated_hash_partitions_at_epoch;
 
 
     public:
     LiveNodes()
-    {
+    {   
+        this->space_separated_hash_partitions_at_epoch = "";
         this->live_node_counter = -1; //counting starts from 1
     }
+        //put them in private while release
+        int run_hash_cal(string start_hash, string end_hash, string no_of_div);
+        string get_all_hash_partitions_value();
+        //..
+      
         int display_live_nodes();   //prints live node details and returns total count
         int add_new_node(Node);
         int setup_network_for_health(short int no_of_nodes_to_add_at_start);  

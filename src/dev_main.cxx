@@ -12,7 +12,7 @@ int main(int argc, char ** argv)
     hash160 h2;
     string temp;
     int targetNode;
-
+    string start_hash, end_hash, divs;
     while(1)
     {
         unsigned short int choice;
@@ -25,10 +25,15 @@ int main(int argc, char ** argv)
         cout<<"\n4.  Get Partition hash160 value";
         cout<<"\n5.  Send Hash to Node";
         cout<<"\n6.  Get ip address of node";
+        cout<<"\n7.  UPDATED: get hash partitions:";
         cout<<"\n0.  Exit";
         cout<<"\n\n\n\n------------------------------------------";
         cin>>choice;
         
+
+
+
+
         switch(choice)
         {
             case 0:
@@ -94,7 +99,15 @@ int main(int argc, char ** argv)
                 cout<<endl<<live_nodes.get_IP_address_of(temp_nodeid);
                 cout<<endl;
                 break;
+            
+            case 7:
                 
+                cout<<"enter start hash, end hash and no-of-divisions";
+                cin>>start_hash>>end_hash>>divs;
+                live_nodes.run_hash_cal(start_hash,end_hash, divs);
+                cout<<live_nodes.get_all_hash_partitions_value();
+
+                break;
             default:
                 continue;
         }

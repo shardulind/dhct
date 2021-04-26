@@ -41,7 +41,7 @@ string LiveNodes :: get_all_hash_partitions_value()
 }
 
 
-string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
+/*string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
 {
    //from, to
     //from, to
@@ -85,7 +85,7 @@ string get_hash_partition_value_at(int total_parts, int current_part, int start_
     else if(8 == total_parts)   return hash160_partition_8[current_part][start_or_end];
 
   }
-
+*/
 
 
 int error(const char *msg)
@@ -123,6 +123,8 @@ int LiveNodes :: display_live_nodes()
     {
         live_nodes[i].print_node_info();
     }
+
+    return 0;
 }
 
 int LiveNodes :: add_new_node(Node new_node)

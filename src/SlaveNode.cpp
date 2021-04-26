@@ -75,7 +75,7 @@ void PartitionedDHT :: live_state()
         
         char* a = inet_ntoa(cli_addr.sin_addr);
 
-        std::cout<<"\nIP of Master Node is : "<<a;
+        //std::cout<<"\nIP of Master Node is : "<<a;
         
 
         bzero(buffer,256);
@@ -102,6 +102,7 @@ void PartitionedDHT :: live_state()
 
 
 
+/*
 int SNode :: establish_connection_with_master(char* master_ip)
 {
     int sock = 0, valread; 
@@ -149,4 +150,4 @@ int SNode :: establish_connection_with_master(char* master_ip)
     
     return 1;
 }
-
+*/

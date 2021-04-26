@@ -14,12 +14,16 @@
 #include "health.h"
 #define DHCT_PORT 7000
 
+
+/*
 class SNode : public Node
 {
     public:
         int establish_connection_with_master(char* master_ip);        
 
 };
+*/
+
 
 struct Dht_unit{
 	string sha1;
@@ -35,6 +39,8 @@ struct Dht_unit{
 		        else if(this->sha1[index] == obj1.sha1[index])
 		                index++;
 		}
+
+		return true; //not confirmed if its true or false.. just to avoid warnings its added,, hoping control never reach here
 	}
 
     /* Not working... Needed more understanding..  Till then make a custom linear search. ;

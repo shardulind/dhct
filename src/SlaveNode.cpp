@@ -31,6 +31,17 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
     return false;
 }
 
+void PartitionedDHT :: turn_off_live_state()
+{
+    this->is_live = false;
+    return;
+}
+
+void PartitionedDHT :: turn_on_live_state()
+{
+    this->is_live = true;
+    return;
+}
 
 void PartitionedDHT :: live_state()
 {
@@ -58,9 +69,9 @@ void PartitionedDHT :: live_state()
               cout<<"ERROR on binding";
     
 
-    bool flag=true;
+    //bool flag=true;
 
-    while(flag)
+    while(this->is_live)
     {   
         cout<<"\n Listening";
         listen(sockfd,5);

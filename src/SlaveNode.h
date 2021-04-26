@@ -56,8 +56,13 @@ class PartitionedDHT
 {
     private:
         	set<struct Dht_unit> s;
+			bool is_live;
 
     public:
+		PartitionedDHT() { is_live = false; }
+
+		void turn_on_live_state();
+		void turn_off_live_state();
         void print_all_local_dht();
         int insert_sha_to_local_dht(string hash);
 		void live_state();

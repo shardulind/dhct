@@ -250,7 +250,7 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
             error("ERROR on binding");
 
 
-    int total_live_nodes = no_of_nodes_to_add_at_start;
+    //int total_live_nodes = no_of_nodes_to_add_at_start;
     for(short int i=0; i<no_of_nodes_to_add_at_start; i++)
     {
     //bool flag;
@@ -263,7 +263,7 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
                 (struct sockaddr *) &cli_addr, 
                 &clilen);
     if (newsockfd < 0) 
-        error("ERROR on accept");
+        error("ERRORtotal_live_nodes on accept");
 
 
     char* a = inet_ntoa(cli_addr.sin_addr);
@@ -336,7 +336,7 @@ int LiveNodes :: routing(string hash)
 int send_hash_to_node(string hash, const char * nodeIP)
 {
     cout<<"\nSending hash to node";
-    int sock = 0, valread; 
+    int sock = 0, valread=0; 
     struct sockaddr_in node_addr; 
     
     char *hello = &hash[0]; 

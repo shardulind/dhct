@@ -51,8 +51,8 @@ int establish_connection_with_master(string master_ip)
     
     
     Node temp;
-    valread = read( sock , &temp, 104); 
-    cout<<endl;
+    valread = read( sock , &temp, 88); 
+    cout<<"\nvalread ="<<valread<<endl;
     temp.print_node_info();
     //my_identity.print_node_info();
     return 1;
@@ -71,6 +71,7 @@ int main(int argc, char **argv)
     print("IP address of Master Node:");
     cin>>master_ip;
     connection_status = establish_connection_with_master(master_ip);
+    cout<<endl<<"Connection status= "<<connection_status<<endl;
     //my_identity.print_node_info();
 
 }

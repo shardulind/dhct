@@ -15,14 +15,14 @@
 #define DHCT_PORT 7000
 
 
-/*
+
 class SNode : public Node
 {
     public:
-        int establish_connection_with_master(char* master_ip);        
+        int establish_connection_with_master(string master_ip);        
 
 };
-*/
+
 
 
 struct Dht_unit{

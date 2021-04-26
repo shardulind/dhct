@@ -8,12 +8,12 @@
 #include "SlaveNode.h"
 using namespace std;
 
-
+/*
 Node my_identity;
 string master_ip; // load it from env var
 
 
-int establish_connection_with_master(string master_ip)
+int establish_connection_with_master_old(string master_ip)
 {
     int sock = 0, valread; 
     struct sockaddr_in serv_addr, my_addr; 
@@ -51,13 +51,13 @@ int establish_connection_with_master(string master_ip)
     
     
     Node temp;
-    valread = read( sock , &temp, 88); 
+    valread = read( sock , &temp, 104); 
     cout<<"\nvalread ="<<valread<<endl;
-    temp.print_node_info();
+    //temp.print_node_info();
     //my_identity.print_node_info();
     return 1;
 }
-
+*/
 
 
 void print(string msg)
@@ -67,10 +67,13 @@ void print(string msg)
 
 int main(int argc, char **argv)
 {
+    string master_ip;
     int connection_status;
     print("IP address of Master Node:");
     cin>>master_ip;
-    connection_status = establish_connection_with_master(master_ip);
+
+    SNode me;
+    connection_status = me.establish_connection_with_master(master_ip);
     cout<<endl<<"Connection status= "<<connection_status<<endl;
     //my_identity.print_node_info();
 

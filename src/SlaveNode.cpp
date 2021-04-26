@@ -109,6 +109,8 @@ void PartitionedDHT :: live_state()
         //cout<<"\nTEST purpose:  Keep running? (1/0)";
         //cin>>flag;
         cout<<"\nis_live= "<<this->is_live<<endl;
+        this->is_live = false;
+
      }
 
      close(sockfd);

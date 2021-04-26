@@ -50,6 +50,8 @@ int main(int argc, char **argv)
     local_dht.turn_off_live_state();
 
     worker.join();
+    cout<<"\n>";
+    local_dht.print_all_local_dht();
 
     return 0;
 }

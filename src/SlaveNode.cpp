@@ -74,10 +74,10 @@ void PartitionedDHT :: live_state()
     //bool flag=true;
 
 
-        cout<<"\n Listening";
-        listen(sockfd,5);
-        
-        clilen = sizeof(cli_addr);
+    cout<<"\n Listening";
+    listen(sockfd,5);
+    
+    clilen = sizeof(cli_addr);
     while(this->is_live)
     {           
         newsockfd = accept(sockfd, 

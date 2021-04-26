@@ -102,7 +102,7 @@ void PartitionedDHT :: live_state()
 
 
 
-
+//ithe change kraicha ahe tula
 int SNode :: establish_connection_with_master(string master_ip)
 {
     int sock = 0, valread=0; 
@@ -144,12 +144,11 @@ int SNode :: establish_connection_with_master(string master_ip)
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
     //Node temp;
-    valread = read( sock , &buffer, 104);
+    valread = read( sock , &buffer, 1024);
     
-    cout<<endl;
+    cout<<buffer<<endl;
     //temp.print_node_info();
-    //printf("%s\n",buffer ); 
-
+    
     
     return 1;
 }

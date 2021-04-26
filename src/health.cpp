@@ -295,7 +295,8 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
     //try sending object.. serialization, deserialization
     //cout<<"\nSize of New Node:"<<sizeof(new_node)<<endl;
 
-    
+    //-------------------------//
+    //ithe string== nodeid,a,start_hash,end_hash
 
     n = write(newsockfd, &new_node, sizeof(new_node));
     if (n < 0) error("ERROR writing to socket");

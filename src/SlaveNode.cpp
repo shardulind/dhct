@@ -75,6 +75,7 @@ void PartitionedDHT :: live_state()
 
     while(this->is_live)
     {   
+        sleep(1000);
         cout<<"\n Listening";
         listen(sockfd,5);
         

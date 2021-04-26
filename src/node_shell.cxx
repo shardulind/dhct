@@ -22,9 +22,11 @@ static bool is_live = true;
 void con_live_state()
 {
    
-    while(is_live)
+    while(is_live){
+        print("pre-test");
         local_dht.live_state();
-
+        print("post-test");
+    }
     return;
 }
 
@@ -46,6 +48,7 @@ int main(int argc, char **argv)
     thread worker(con_live_state);
 
     cin.get();
+    cout<<"\nPressed enter";
     is_live = false;
 
     worker.join();

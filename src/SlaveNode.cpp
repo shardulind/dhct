@@ -117,6 +117,8 @@ int SNode :: establish_connection_with_master(string master_ip)
     char *hello = a + *my_ip; 
     char buffer[1024] = {0}; 
 
+
+
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     { 
         printf("\n Socket creation error \n"); 
@@ -141,11 +143,11 @@ int SNode :: establish_connection_with_master(string master_ip)
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
-    Node temp;
-    valread = read( sock , &temp, 104);
+    //Node temp;
+    valread = read( sock , &buffer, 104);
     
     cout<<endl;
-    temp.print_node_info();
+    //temp.print_node_info();
     //printf("%s\n",buffer ); 
 
     

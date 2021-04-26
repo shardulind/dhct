@@ -45,7 +45,6 @@ int main(int argc, char **argv)
 
 
     cin.get();
-    cin.get();
     cout<<"\nPressed enter";
     local_dht.turn_off_live_state();
 

@@ -43,12 +43,13 @@ int main(int argc, char **argv)
     
     thread worker(con_live_state);
 
+    sleep(1000);
+    
     cin.get();
     cout<<"\nPressed enter";
     local_dht.turn_off_live_state();
 
     worker.join();
 
-    cin.get();
     return 0;
 }

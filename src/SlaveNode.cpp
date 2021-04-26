@@ -88,12 +88,12 @@ void PartitionedDHT :: live_state()
 
         insert_sha_to_local_dht(buffer);
 
-        n = write(newsockfd, "OK", 2);
+        n = write(newsockfd, "OK", 2);  
         if (n < 0) cout<<"\nERROR writing to socket";
             close(newsockfd);
 
-        cout<<"\nTEST purpose:  Keep running? (1/0)";
-        cin>>flag;
+        //cout<<"\nTEST purpose:  Keep running? (1/0)";
+        //cin>>flag;
      }
 
      close(sockfd);

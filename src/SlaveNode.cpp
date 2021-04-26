@@ -33,12 +33,14 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
 
 void PartitionedDHT :: turn_off_live_state()
 {
+    cout<<"\n TURN OFF LIVE STATE CALLED";
     this->is_live = false;
     return;
 }
 
 void PartitionedDHT :: turn_on_live_state()
 {
+    cout<<"\n TURN ON LIVE STATE CALLED";
     this->is_live = true;
     return;
 }
@@ -105,6 +107,7 @@ void PartitionedDHT :: live_state()
 
         //cout<<"\nTEST purpose:  Keep running? (1/0)";
         //cin>>flag;
+        cout<<"\nis_live= "<<this->is_live<<endl;
      }
 
      close(sockfd);

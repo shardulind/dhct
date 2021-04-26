@@ -73,14 +73,13 @@ void PartitionedDHT :: live_state()
 
     //bool flag=true;
 
-    while(this->is_live)
-    {   
-        sleep(1000);
+
         cout<<"\n Listening";
         listen(sockfd,5);
         
         clilen = sizeof(cli_addr);
-        
+    while(this->is_live)
+    {           
         newsockfd = accept(sockfd, 
                     (struct sockaddr *) &cli_addr, 
                     &clilen);
@@ -109,7 +108,6 @@ void PartitionedDHT :: live_state()
         //cout<<"\nTEST purpose:  Keep running? (1/0)";
         //cin>>flag;
         cout<<"\nis_live= "<<this->is_live<<endl;
-        this->is_live = false;
 
      }
 

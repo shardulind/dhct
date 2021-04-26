@@ -22,6 +22,7 @@ static bool is_live = true;
 void con_live_state()
 {
     local_dht.turn_on_live_state();
+    sleep(500);
     local_dht.live_state();
 }
 

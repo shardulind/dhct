@@ -12,6 +12,7 @@ void print(string msg)
 
 int main(int argc, char **argv)
 {
+
     //now see
     //read the environmental variables,, which will be having details about the  T.B.D.  (needed to make changes in other files too)
 
@@ -39,14 +40,20 @@ int main(int argc, char **argv)
     while(true){
         print("Enter hash to send to node: ");
         cin>>temp;
+
+        if(temp == "-status")
+                print(" Here we will print status-- master node and live nodes detail");
+        
+        else if(temp == "-exit")  
+                exit(0);
+        else if(temp == "")
+                print("No input");
+        
         targetNode = live_nodes.routing(temp);
         
         send_hash_to_node(temp, live_nodes.get_IP_address_of(targetNode));
     }
 
 
-    // here comes threading. 2 threads running 
-    // 1st thread  put()
-    // 2nd thread  basic shell commands
     return 0;
 }

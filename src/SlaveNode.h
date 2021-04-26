@@ -59,7 +59,7 @@ class PartitionedDHT
 			bool is_live;
 
     public:
-		PartitionedDHT() { is_live = false; }
+		PartitionedDHT() { is_live = true; }
 
 		void turn_on_live_state();
 		void turn_off_live_state();

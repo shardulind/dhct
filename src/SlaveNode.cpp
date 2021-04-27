@@ -20,7 +20,7 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
     for(it = s.begin(); it != s.end(); it++)
     {
         if(it->sha1 == received_hash){
-            cout<<"\nDEBUG  hash ="<<it->sha1<<"\n is_stored = "<<it->is_hash_stored;
+            cout<<"\n> Hash already exist\n\n";
             return it->is_hash_stored;
         }
     }
@@ -78,8 +78,9 @@ void PartitionedDHT :: live_state()
     listen(sockfd,5);
     
     clilen = sizeof(cli_addr);
-    //while(this->is_live)
-    do
+    bool hash_status;
+    //try some sleep over here
+    while(this->is_live)
     {           
         newsockfd = accept(sockfd, 
                     (struct sockaddr *) &cli_addr, 
@@ -100,9 +101,13 @@ void PartitionedDHT :: live_state()
         //cout<<"\n DEBUG\n Hash received from Master Node is: ";
         cout<<"Hash Received: "<<buffer<<endl;
 
-        insert_sha_to_local_dht(buffer);
+        hash_status = insert_sha_to_local_dht(buffer);
 
-        n = write(newsockfd, "OK", 2);  
+        if(!hash_status)
+            n = write(newsockfd, "OK", 2);
+        else
+            n = write(newsockfd, "HASH ALREADY EXISTS", 19);
+          
         if (n < 0) cout<<"\nERROR writing to socket";
             close(newsockfd);
 
@@ -110,7 +115,7 @@ void PartitionedDHT :: live_state()
         //cin>>flag;
         //cout<<"\nis_live= "<<this->is_live<<endl;
 
-     }while(this->is_live);
+     }
 
      close(sockfd);
      return;

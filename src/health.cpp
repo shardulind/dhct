@@ -325,7 +325,7 @@ int LiveNodes :: routing(string hash)
 
     for(int i=0; i<=live_node_counter; i++)
     {
-        cout<<endl<<i;
+        //cout<<endl<<i;
         if(temp <= live_nodes[i].end_hash)    return i;
     }
     cout<<"\n DEBUG: Error in routing";
@@ -336,7 +336,7 @@ int LiveNodes :: routing(string hash)
 
 int send_hash_to_node(string hash, const char * nodeIP)
 {
-    cout<<"\nSending hash to node";
+   // cout<<"\nSending hash to node";
     int sock = 0, valread=0; 
     struct sockaddr_in node_addr; 
     
@@ -366,7 +366,7 @@ int send_hash_to_node(string hash, const char * nodeIP)
     } 
 
     send(sock , hello , strlen(hello) , 0 ); 
-    printf("hash message sent\n"); 
+   // printf("hash message sent\n"); 
     
     //waiting from them.. expected "OK"
     valread = read( sock , buffer, 1024); 

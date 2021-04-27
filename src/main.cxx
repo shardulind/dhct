@@ -44,13 +44,13 @@ int main(int argc, char **argv)
         if(temp == "-status")
                 print(" Here we will print status-- master node and live nodes detail");
         
-        else if(temp == "-exit")  
+        else if(temp == "--exit" )  
                 exit(0);
         else if(temp == "")
                 print("No input");
         
         targetNode = live_nodes.routing(temp);
-        
+        cout<<"\n>Node id = "<<targetNode;
         send_hash_to_node(temp, live_nodes.get_IP_address_of(targetNode));
     }
 

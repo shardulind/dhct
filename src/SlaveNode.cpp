@@ -180,9 +180,11 @@ int SNode :: establish_connection_with_master(string master_ip)
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
+//    string nodee = to_string(i)+","+a+","+hash_partitions[i].first+","+hash_partitions[i].second+",";
 
     valread = read( sock ,buffer, 95);
     string title[4]={"NodeId","NodeIp","StartHash","EndHash"};
+    string values[4];
     int i=0,j=0;
     int len = sizeof(buffer)/sizeof(buffer[0]);
     while(i<len-1)
@@ -192,11 +194,14 @@ int SNode :: establish_connection_with_master(string master_ip)
         {
         s= s+buffer[i];
         i++;
-        }i++;
+        }
+        i++;  //to pass commma
         cout<<title[j]<<": "<<s<<endl;
+        values[j] = s;
 
         
         j++;
+        if(j==4) break;
     }
     
     

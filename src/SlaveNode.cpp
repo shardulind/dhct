@@ -203,8 +203,16 @@ int SNode :: establish_connection_with_master(string master_ip)
         j++;
         if(j==4) break;
     }
+
+    char *temp = &values[0][0];
     
-    
+    struct sockaddr_in my_details;
+    my_details.sin_family = AF_INET;
+    my_details.sin_addr.s_addr = INADDR_ANY;  //ip address of this machine
+
+
+    this->createNode(atoi(temp), my_details);
+    this->add_hash_range(values[2], values[3]);
     
     return 1;
 }

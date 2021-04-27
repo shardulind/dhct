@@ -41,7 +41,7 @@ string LiveNodes :: get_all_hash_partitions_value()
 }
 
 
-string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
+/*string get_hash_partition_value_at(int total_parts, int current_part, int start_or_end)      //0 for start, 1 for end
 {
    //from, to
     //from, to
@@ -85,7 +85,7 @@ string get_hash_partition_value_at(int total_parts, int current_part, int start_
     else if(8 == total_parts)   return hash160_partition_8[current_part][start_or_end];
 
   }
-
+*/
 
 
 int error(const char *msg)
@@ -123,6 +123,8 @@ int LiveNodes :: display_live_nodes()
     {
         live_nodes[i].print_node_info();
     }
+
+    return 0;
 }
 
 int LiveNodes :: add_new_node(Node new_node)
@@ -248,7 +250,7 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
             error("ERROR on binding");
 
 
-    int total_live_nodes = no_of_nodes_to_add_at_start;
+    //int total_live_nodes = no_of_nodes_to_add_at_start;
     for(short int i=0; i<no_of_nodes_to_add_at_start; i++)
     {
     //bool flag;
@@ -261,7 +263,7 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
                 (struct sockaddr *) &cli_addr, 
                 &clilen);
     if (newsockfd < 0) 
-        error("ERROR on accept");
+        error("ERRORtotal_live_nodes on accept");
 
 
     char* a = inet_ntoa(cli_addr.sin_addr);
@@ -293,7 +295,8 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
     //try sending object.. serialization, deserialization
     //cout<<"\nSize of New Node:"<<sizeof(new_node)<<endl;
 
-
+    //-------------------------//
+    //ithe string== nodeid,a,start_hash,end_hash
 
     n = write(newsockfd, &new_node, sizeof(new_node));
     if (n < 0) error("ERROR writing to socket");
@@ -322,7 +325,7 @@ int LiveNodes :: routing(string hash)
 
     for(int i=0; i<=live_node_counter; i++)
     {
-        cout<<endl<<i;
+        //cout<<endl<<i;
         if(temp <= live_nodes[i].end_hash)    return i;
     }
     cout<<"\n DEBUG: Error in routing";
@@ -333,8 +336,8 @@ int LiveNodes :: routing(string hash)
 
 int send_hash_to_node(string hash, const char * nodeIP)
 {
-    cout<<"\nSending hash to node";
-    int sock = 0, valread; 
+   // cout<<"\nSending hash to node";
+    int sock = 0, valread=0; 
     struct sockaddr_in node_addr; 
     
     char *hello = &hash[0]; 
@@ -363,7 +366,7 @@ int send_hash_to_node(string hash, const char * nodeIP)
     } 
 
     send(sock , hello , strlen(hello) , 0 ); 
-    printf("hash message sent\n"); 
+   // printf("hash message sent\n"); 
     
     //waiting from them.. expected "OK"
     valread = read( sock , buffer, 1024); 

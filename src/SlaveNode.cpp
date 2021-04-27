@@ -2,6 +2,21 @@
 using namespace std;
 
 
+void PartitionedDHT :: print_node_stats()
+{
+    //stats - node id, node hash range, total hash stored, max hash size
+    cout<<"\n................Node Stats................";
+    cout<<"\n\t Total hash stored count = "<<this->total_hash_stored;
+    cout<<"\n\t Max count Hash Storable = "<<this->s.max_size();
+    cout<<endl<<endl;
+    cout<<"..........................................";
+
+    return;
+
+}
+
+
+
 void PartitionedDHT :: print_all_local_dht()
 {
     	set<struct Dht_unit>::iterator it;
@@ -20,7 +35,7 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
     for(it = s.begin(); it != s.end(); it++)
     {
         if(it->sha1 == received_hash){
-            cout<<"\nDEBUG  hash ="<<it->sha1<<"\n is_stored = "<<it->is_hash_stored;
+            cout<<"\n> Hash already exist\n\n";
             return it->is_hash_stored;
         }
     }
@@ -28,9 +43,23 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
     //reached here, it means that hash is not their in local dht..
     //thus needed to add in the local dht
     s.insert(Dht_unit{received_hash, true});
+    this->total_hash_stored++;
     return false;
 }
 
+void PartitionedDHT :: turn_off_live_state()
+{
+    cout<<"\n TURN OFF LIVE STATE CALLED";
+    this->is_live = false;
+    return;
+}
+
+void PartitionedDHT :: turn_on_live_state()
+{
+    cout<<"\n TURN ON LIVE STATE CALLED";
+    this->is_live = true;
+    return;
+}
 
 void PartitionedDHT :: live_state()
 {
@@ -58,15 +87,17 @@ void PartitionedDHT :: live_state()
               cout<<"ERROR on binding";
     
 
-    bool flag=true;
+    //bool flag=true;
 
-    while(flag)
-    {   
-        cout<<"\n Listening";
-        listen(sockfd,5);
-        
-        clilen = sizeof(cli_addr);
-        
+
+    cout<<"\n........Node is Live........"<<endl;
+    listen(sockfd,5);
+    
+    clilen = sizeof(cli_addr);
+    bool hash_status;
+    //try some sleep over here
+    while(this->is_live)
+    {           
         newsockfd = accept(sockfd, 
                     (struct sockaddr *) &cli_addr, 
                     &clilen);
@@ -75,25 +106,31 @@ void PartitionedDHT :: live_state()
         
         char* a = inet_ntoa(cli_addr.sin_addr);
 
-        std::cout<<"\nIP of Master Node is : "<<a;
+        //std::cout<<"\nIP of Master Node is : "<<a;
         
 
         bzero(buffer,256);
         n = read(newsockfd,buffer,255);
         if (n < 0) cout<<"ERROR reading from socket\n";
 
-        cout<<"\n===============================================";
-        cout<<"\n DEBUG\n Hash received from Master Node is: ";
-        cout<<buffer;
+        //cout<<"\n===============================================";
+        //cout<<"\n DEBUG\n Hash received from Master Node is: ";
+        cout<<"Hash Received: "<<buffer<<endl;
 
-        insert_sha_to_local_dht(buffer);
+        hash_status = insert_sha_to_local_dht(buffer);
 
-        n = write(newsockfd, "OK", 2);
+        if(!hash_status)
+            n = write(newsockfd, "OK", 2);
+        else
+            n = write(newsockfd, "HASH ALREADY EXISTS", 19);
+          
         if (n < 0) cout<<"\nERROR writing to socket";
             close(newsockfd);
 
-        cout<<"\nTEST purpose:  Keep running? (1/0)";
-        cin>>flag;
+        //cout<<"\nTEST purpose:  Keep running? (1/0)";
+        //cin>>flag;
+        //cout<<"\nis_live= "<<this->is_live<<endl;
+
      }
 
      close(sockfd);
@@ -102,18 +139,22 @@ void PartitionedDHT :: live_state()
 
 
 
-int SNode :: establish_connection_with_master(char* master_ip)
+//ithe change kraicha ahe tula
+int SNode :: establish_connection_with_master(string master_ip)
 {
-    int sock = 0, valread; 
+    int sock = 0, valread=0; 
     struct sockaddr_in serv_addr, my_addr; 
-
     my_addr.sin_addr.s_addr = INADDR_ANY;
 
     char* my_ip = inet_ntoa(my_addr.sin_addr);
-    
+    char* const mip = &master_ip[0];
+
+
     char* a = "Hello from ";
     char *hello = a + *my_ip; 
     char buffer[1024] = {0}; 
+
+
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     { 
@@ -125,7 +166,7 @@ int SNode :: establish_connection_with_master(char* master_ip)
     serv_addr.sin_port = htons(HEALTH_PORT); 
        
     // Convert IPv4 and IPv6 addresses from text to binary form 
-    if(inet_pton(AF_INET, master_ip, &serv_addr.sin_addr)<=0)  
+    if(inet_pton(AF_INET, mip, &serv_addr.sin_addr)<=0)  
     { 
         printf("\nInvalid address/ Address not supported \n"); 
         return -1; 
@@ -139,14 +180,15 @@ int SNode :: establish_connection_with_master(char* master_ip)
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
-    Node temp;
-    valread = read( sock , &temp, 104);
+    //Node temp;
+    valread = read( sock , &buffer, 1024);
     
-    //cout<<endl;
+    cout<<buffer<<endl;
     //temp.print_node_info();
-    //printf("%s\n",buffer ); 
-
+    
     
     return 1;
 }
+
+
 

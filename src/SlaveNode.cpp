@@ -205,10 +205,11 @@ int SNode :: establish_connection_with_master(string master_ip)
     }
 
     char *temp = &values[0][0];
-    
+    char *temp_addr = &values[1][0];
+
     struct sockaddr_in my_details;
     my_details.sin_family = AF_INET;
-    my_details.sin_addr.s_addr = INADDR_ANY;  //ip address of this machine
+    my_details.sin_addr.s_addr = inet_addr(temp_addr);  //ip address of this machine
 
 
     this->createNode(atoi(temp), my_details);

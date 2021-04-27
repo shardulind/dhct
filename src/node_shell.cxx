@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 
     worker.join();
     cout<<"\n>";
-    print(">");
+    print("");
     
     while(interpreter){
         print(">");
@@ -69,7 +69,15 @@ int main(int argc, char **argv)
             local_dht.print_node_stats();
         else  if(temp == "-go_live")
             break;
-        else   
+        else if(temp =="\n" )  
+        {
+            cout<<"\n\t\t................help...............";
+            cout<<"\n\t\t-print_all_data   : To print all hash's (dev)";
+            cout<<"\n\t\t-node_stats       : Print Node Stats";
+            cout<<"\n\t\t-go_live          : Go Live";
+            cout<<"\n\t\t...................................";
+        }
+        else
         {
             cout<<"\n................help...............";
             cout<<"\n\t\t-print_all_data   : To print all hash's (dev)";

@@ -50,7 +50,7 @@ int main(int argc, char **argv)
                 print("No input");
         
         targetNode = live_nodes.routing(temp);
-        cout<<"\n>Node id = "<<targetNode;
+        cout<<"\n>Node id = "<<targetNode<<"    ";
         send_hash_to_node(temp, live_nodes.get_IP_address_of(targetNode));
     }
 

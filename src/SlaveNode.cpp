@@ -2,6 +2,21 @@
 using namespace std;
 
 
+void PartitionedDHT :: print_node_stats()
+{
+    //stats - node id, node hash range, total hash stored, max hash size
+    cout<<"\n................Node Stats................";
+    cout<<"\n\t Total hash stored count = "<<this->total_hash_stored;
+    cout<<"\n\t Max count Hash Storable = "<<this->s.max_size();
+    cout<<endl<<endl;
+    cout<<"..........................................";
+
+    return;
+
+}
+
+
+
 void PartitionedDHT :: print_all_local_dht()
 {
     	set<struct Dht_unit>::iterator it;
@@ -28,6 +43,7 @@ int PartitionedDHT :: insert_sha_to_local_dht(string received_hash)
     //reached here, it means that hash is not their in local dht..
     //thus needed to add in the local dht
     s.insert(Dht_unit{received_hash, true});
+    this->total_hash_stored++;
     return false;
 }
 

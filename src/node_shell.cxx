@@ -57,20 +57,27 @@ int main(int argc, char **argv)
     worker.join();
     cout<<"\n>";
     print(">");
-    cin>>temp;
-
+    
     while(interpreter){
         print(">");
-        
+        cin>>temp;    
         if(temp == "-exit")
             exit(0);
         else if(temp == "-print_all_data")
             local_dht.print_all_local_dht();
-        else if(temp == "-node stats")
+        else if(temp == "-node_stats")
             local_dht.print_node_stats();
         else  if(temp == "-go_live")
             break;
-        else   continue;
+        else   
+        {
+            cout<<"\n................help...............";
+            cout<<"\n\t\t-print_all_data   : To print all hash's (dev)";
+            cout<<"\n\t\t-node_stats       : Print Node Stats";
+            cout<<"\n\t\t-go_live          : Go Live";
+            cout<<"\n...................................";
+        }
+
 
         }
     }

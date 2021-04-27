@@ -183,7 +183,7 @@ int SNode :: establish_connection_with_master(string master_ip)
 //    string nodee = to_string(i)+","+a+","+hash_partitions[i].first+","+hash_partitions[i].second+",";
 
     valread = read( sock ,buffer, 95);
-    string title[4]={"NodeId","NodeIp","StartHash","EndHash"};
+    //string title[4]={"NodeId","NodeIp","StartHash","EndHash"};
     string values[4];
     int i=0,j=0;
     int len = sizeof(buffer)/sizeof(buffer[0]);
@@ -196,7 +196,7 @@ int SNode :: establish_connection_with_master(string master_ip)
         i++;
         }
         i++;  //to pass commma
-        cout<<title[j]<<": "<<s<<endl;
+        //cout<<title[j]<<": "<<s<<endl;
         values[j] = s;
 
         

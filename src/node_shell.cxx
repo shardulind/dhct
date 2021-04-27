@@ -41,7 +41,8 @@ int main(int argc, char **argv)
     
     
     connection_status = me.establish_connection_with_master(master_ip);
-    //cout<<endl<<"Connection status= "<<connection_status<<endl;
+    if(connection_status == 1)  me.print_node_info();
+    else{ print("Error in connecting"); exit(1);}
 
     while(true){
 
@@ -65,8 +66,10 @@ int main(int argc, char **argv)
             exit(0);
         else if(temp == "-print_all_data")
             local_dht.print_all_local_dht();
-        else if(temp == "-node_stats")
+        else if(temp == "-node_stats"){
+            me.print_node_info();
             local_dht.print_node_stats();
+        }
         else  if(temp == "-go_live")
             break;
         else if(temp =="\n" )  

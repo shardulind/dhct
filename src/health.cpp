@@ -297,8 +297,22 @@ int LiveNodes :: setup_network_for_health(short int no_of_nodes_to_add_at_start)
 
     //-------------------------//
     //ithe string== nodeid,a,start_hash,end_hash
+   
+    //string clientIp(a,a+sizeof(a)/sizeof(a[0]));
+    string nodee = to_string(i)+","+a+","+hash_partitions[i].first+","+hash_partitions[i].second+",";
+    //cout<<"testing what is stored in string :"<<nodee;
+    
+    int len = nodee.length();
+ 
+    // declaring character array
+    char char_array[len + 1];
+ 
+    // copying the contents of the
+    // string to char array
+    strcpy(char_array, nodee.c_str());
 
-    n = write(newsockfd, &new_node, sizeof(new_node));
+    //n = write(newsockfd, &new_node, sizeof(new_node));
+     n = write(newsockfd,char_array,len);
     if (n < 0) error("ERROR writing to socket");
         close(newsockfd);
 

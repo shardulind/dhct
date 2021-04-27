@@ -77,7 +77,7 @@ int main(int argc, char ** argv)
                 cout<<"Partition value for enter: ( total_nodes, node_number(index), (start=0/end=1)) ";
                 int a,b,c;
                 cin>>a>>b>>c;
-                cout<<get_hash_partition_value_at(a,b,c);
+                //cout<<get_hash_partition_value_at(a,b,c);
                 break;
             
 

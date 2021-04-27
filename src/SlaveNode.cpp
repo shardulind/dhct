@@ -115,7 +115,7 @@ int SNode :: establish_connection_with_master(string master_ip)
 
     char* a = "Hello from ";
     char *hello = a + *my_ip; 
-    char buffer[1024] = {0}; 
+    char buffer[95] = {0}; 
 
 
 
@@ -143,11 +143,38 @@ int SNode :: establish_connection_with_master(string master_ip)
     send(sock , hello , strlen(hello) , 0 ); 
     printf("\nRequest sent to Master to connect to Overlay Network\n"); 
     
-    //Node temp;
-    valread = read( sock , &buffer, 1024);
+    //tried adding this
+    /*int red = -1;
+	byte[] buffer = new byte[5*1024]; // a read buffer of 5KiB
+	byte[] redData;
+	StringBuilder clientData = new StringBuilder();
+	String redDataText;
+	while ((red = sock.getInputStream().read(buffer)) > -1) {
+	    redData = new byte[red];
+	    System.arraycopy(buffer, 0, redData, 0, red);
+	    redDataText = new String(redData,"UTF-8"); // assumption that client sends data UTF-8 encoded
+	    System.out.println("message part recieved:" + redDataText); 
+	    clientData.append(redDataText);
+}
+System.out.println("Data From Client(its server) :" + clientData.toString());*/
     
-    cout<<buffer<<endl;
-    //temp.print_node_info();
+
+    valread = read( sock ,buffer, 95)
+    string title[4]={"NodeId","NodeIp","StartHash","EndHash"};
+    int i=0,j=0;
+    int len = sizeof(buffer)/sizeof(buffer[0]);
+    while(i<len-1)
+    { 
+    string s;
+    while (buffer[i]!=',')
+    {
+     s= s+buffer[i];
+     i++;
+    }i++;
+    cout<<title[j]<<": "<<s<<endl;
+    j++;
+    }
+    
     
     
     return 1;

@@ -1,0 +1,8 @@
+First, make sure you set SO_REUSEADDR option on the server socket to be able to re-start listening.
+
+Then, I'm guessing, your problem is that accept() blocks and you cant stop it when you need to, so you are killing the thread. Bad solution. The right answer here is asynchronous I/O, i.e. select() or poll() or their Windows counterparts. Take a look at Advanced Winsock Samples.
+
+A quick-and-dirty solution in a multithreaded app is to check some is_it_time_to_stop_accepting_connections flag before each accept(), then when it's time to stop, flip the flag and connect to the listening port (yes, in the same program). That will unblock the accept() and allow you to do proper closesocket() or whatever.
+
+
+https://en.wikipedia.org/wiki/Asynchronous_I/O

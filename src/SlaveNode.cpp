@@ -74,11 +74,12 @@ void PartitionedDHT :: live_state()
     //bool flag=true;
 
 
-    cout<<"\n Listening";
+    cout<<"\n........Node is Live........"<<endl;
     listen(sockfd,5);
     
     clilen = sizeof(cli_addr);
-    while(this->is_live)
+    //while(this->is_live)
+    do
     {           
         newsockfd = accept(sockfd, 
                     (struct sockaddr *) &cli_addr, 
@@ -95,9 +96,9 @@ void PartitionedDHT :: live_state()
         n = read(newsockfd,buffer,255);
         if (n < 0) cout<<"ERROR reading from socket\n";
 
-        cout<<"\n===============================================";
-        cout<<"\n DEBUG\n Hash received from Master Node is: ";
-        cout<<buffer;
+        //cout<<"\n===============================================";
+        //cout<<"\n DEBUG\n Hash received from Master Node is: ";
+        cout<<"Hash Received: "<<buffer<<endl;
 
         insert_sha_to_local_dht(buffer);
 
@@ -107,9 +108,9 @@ void PartitionedDHT :: live_state()
 
         //cout<<"\nTEST purpose:  Keep running? (1/0)";
         //cin>>flag;
-        cout<<"\nis_live= "<<this->is_live<<endl;
+        //cout<<"\nis_live= "<<this->is_live<<endl;
 
-     }
+     }while(this->is_live);
 
      close(sockfd);
      return;

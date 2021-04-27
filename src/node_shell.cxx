@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     
     
     connection_status = me.establish_connection_with_master(master_ip);
-    cout<<endl<<"Connection status= "<<connection_status<<endl;
+    //cout<<endl<<"Connection status= "<<connection_status<<endl;
 
     
     thread worker(con_live_state);
